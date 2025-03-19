@@ -9,9 +9,12 @@ while(True):
     ret, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     out.write(frame)
+    green = np.zeros_like(frame)
+    green[:, :, 1] = frame[:, :, 1]
     cv2.imshow('frame',frame)
     cv2.imshow('gray',gray)
-    if cv2.waitKey(1) & 0xFF == ord('r'):
+    cv2.imshow('green', green)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cap.release()
 out.release()

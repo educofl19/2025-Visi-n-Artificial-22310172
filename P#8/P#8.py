@@ -6,38 +6,21 @@ cap = cv2.VideoCapture(0)
 while(1):
 
     _, frame = cap.read()
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     
-    lower_red = np.array([30,150,50])
-    upper_red = np.array([255,255,180])
+#Metodos
+    laplacian = cv2.Laplacian(frame, cv2.CV_64F)
+    sobelx = cv2.Sobel(frame, cv2.CV_64F,1,0,ksize=5)
+    sobely = cv2.Sobel(frame, cv2.CV_64F,0,1,ksize=5)
+    edges = cv2.Canny(frame,100,200)
     
-    mask = cv2.inRange(hsv, lower_red, upper_red)
-    res = cv2.bitwise_and(frame, frame, mask=mask)
-
-    kernel = np.ones((5,5), np.uint8)
-    erosion = cv2.erode(mask, kernel, iterations=1)
-    dilation = cv2.dilate(mask, kernel, iterations=1)
-    opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
-    closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-    
-    # Top Hat: diferencia entre la imagen original y su apertura
-    tophat = cv2.morphologyEx(mask, cv2.MORPH_TOPHAT, kernel)
-
-    # Black Hat: diferencia entre el cierre de la imagen y la imagen original
-    blackhat = cv2.morphologyEx(mask, cv2.MORPH_BLACKHAT, kernel)
-    
-    cv2.imshow('Original', frame)
-    cv2.imshow('Mask', mask)
-    cv2.imshow('Erosion', erosion)
-    cv2.imshow('Dilation', dilation)
-    cv2.imshow('Opening', opening)
-    cv2.imshow('Closing', closing)
-    cv2.imshow('Tophat', tophat)
-    cv2.imshow('Blackhat', blackhat)
+    cv2.imshow('laplacian',laplacian)
+    cv2.imshow('sobelx',sobelx)
+    cv2.imshow('sobely',sobely)
+    cv2.imshow('Edges',edges)
     
     k = cv2.waitKey(5) & 0xFF
     if k == 27:
         break
 
-cap.release()
 cv2.destroyAllWindows()
+cap.release()

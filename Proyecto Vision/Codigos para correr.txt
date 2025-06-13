@@ -1,0 +1,3 @@
+python -m idlelib (Correr el IDLE con el entorno virtual)
+python "C:/Users/educo/OneDrive/Escritorio/Proyecto Vision/Codigo python.py" (Correr el codigo desde el entorno virtual abierto en cmd)
+"C:\Users\educo\OneDrive\Escritorio\Proyecto Vision\venv310\Scripts\activate" (Entrar en el entorno virtual)
